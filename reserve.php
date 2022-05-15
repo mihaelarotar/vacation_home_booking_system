@@ -89,7 +89,7 @@ session_start();?>
                     <h2><?php echo $fetch['location']?></h2>
                     <h3><?php echo "Capacity: ". $fetch['capacity']." people"?></h3>
                     <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
-                    <h4 style = "color:green;"><?php echo "Price: €".$fetch['price'].".00/night"?></h4>
+                    <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                     <br />
 <!--                    <a style = "margin-left:50px;" href = "reserve.php?id=--><?php //echo $fetch['id']?><!--"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>-->
                 </div>
@@ -101,25 +101,59 @@ session_start();?>
                 <h3>Choose Check-Out Date</h3>
                 Date: <input type="text" id="datepicker2">
 
-<!--                <div id="holder"></div>-->
-<!--                <div id="datepicker1"></div>-->
-<!---->
-<!--                <div id="holder"></div>-->
-<!--                <div id="datepicker2"></div>-->
-<!--                <script src=-->
-<!--                        "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">-->
-<!--                </script>-->
-<!--                <script src=-->
-<!--                        "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">-->
-<!--                </script>-->
+
                 <script type="text/javascript">
-                    $(document).ready(function () {
+                   $(function () {
+                   var reserved_days=[];
+                       <?php
+                    include 'admin/connect.php';
+                    global $conn;
+                    $query = $conn->query("SELECT checkin, checkout FROM `reservations`");
+                    //$rows = $query->num_rows;
+////                    if ($rows == 0) {
+////                        echo 'No reservations to show.';
+////                    }
+////                    else {
+                    while($fetch = $query->fetch_array()) {
+                    $checkin = date($fetch['checkin']);
+                    $checkout = date($fetch['checkout']);?>
+                       reserved_days.push(new Date('<?php
+                           $date = str_replace('-"', '/', $checkin);
+                           $newDate = date("Y/m/d", strtotime($date));
+                       echo $newDate
+                           ?>'))
+
+//                    for($date=$checkin; $date<=$checkout; $date=$date+86400){
+//                        $newDate = date("d-m-Y", strtotime($date)); ?>
+//                        reserved_days.push(new Date('<?php
+//                            //$newDate = date("d-m-Y", strtotime($date));
+//                            echo $newDate   ?>//')
+//                        );
+
+
+                    <?php
+                        //}
+                    //}
+                        }
+                    ?>
+
+                        $(document).ready(function () {
                         var dateToday = new Date();
                         $(function() {
                             $("#datepicker1").datepicker({
                                 numberOfMonths:3,
                                 dateFormat: "dd-mm-yy",
-                                minDate: dateToday
+                                minDate: dateToday,
+                                beforeShowDay: function(date) {
+                                    //var highlight = reserved_days[date];
+                                    for(var i=0;i<reserved_days.length;i++){
+                                        if(reserved_days[i].getTime() === date.getTime()){
+                                            return [false, "event", 'Not available'];
+                                        }
+                                    }
+                                    return [true, '', ''];
+
+                                }
                             });
                         });
 
@@ -128,21 +162,35 @@ session_start();?>
                             $("#datepicker2").datepicker({
                                 numberOfMonths:3,
                                 dateFormat: "dd-mm-yy",
-                                //minDate: previousDate
+                                minDate: dateToday,
+                                beforeShowDay: function(date) {
+                                    //var highlight = reserved_days[date];
+                                    for (var i = 0; i < reserved_days.length; i++) {
+                                        if (reserved_days[i].getTime() === date.getTime()) {
+                                            return [false, "event", 'Not available'];
+                                        }
+                                    }
+                                    return [true, '', ''];
+                                }
+
+
                             });
                         });
-
+                        let startDate, endDate;
                         $('#datepicker1').change(function() {
                             startDate = $(this).datepicker('getDate');
                             $("#datepicker2").datepicker("option", "minDate", startDate);
-                        })
+                        });
 
                         $('#datepicker2').change(function() {
                             endDate = $(this).datepicker('getDate');
                             $("#datepicker1").datepicker("option", "maxDate", endDate);
-                        })
+                        });
 
-                    })
+                    });
+                   });
+                   // });
+
                 </script>
             </div>
         </div>
