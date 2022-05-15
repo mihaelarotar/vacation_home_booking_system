@@ -1,5 +1,6 @@
 <?php
-session_start();?>
+session_start();
+global $house_id?>
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -71,6 +72,7 @@ session_start();?>
     </nav>
 </ul>
 <div style = "margin-left:0;" class = "container">
+
     <div class = "panel panel-default">
         <div class = "panel-body">
             <!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
@@ -80,8 +82,10 @@ session_start();?>
             $query = $conn->query("SELECT * FROM `houses` WHERE `id` = '$_REQUEST[id]'");
 //            $stmt->bind_param("i", $_POST['id']);
             $fetch = $query->fetch_array();
+            $house_id=$fetch['id'];
                 ?>
             <div class = "well" style = "height:300px; width:100%;">
+
                 <div style = "float:left;">
                     <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350"/>
                 </div>
@@ -95,106 +99,106 @@ session_start();?>
                 </div>
             </div>
             <div>
-                <h3>Choose Check-In Date</h3>
-                Date: <input type="text" id="datepicker1">
-                <br /><br />
-                <h3>Choose Check-Out Date</h3>
-                Date: <input type="text" id="datepicker2">
-
-
                 <script type="text/javascript">
-                   $(function () {
-                   var reserved_days=[];
-                       <?php
-                    include 'admin/connect.php';
-                    global $conn;
-                    $query = $conn->query("SELECT checkin, checkout FROM `reservations`");
-                    //$rows = $query->num_rows;
-////                    if ($rows == 0) {
-////                        echo 'No reservations to show.';
-////                    }
-////                    else {
-                    while($fetch = $query->fetch_array()) {
-                    $checkin = date($fetch['checkin']);
-                    $checkout = date($fetch['checkout']);?>
-                       reserved_days.push(new Date('<?php
-                           $date = str_replace('-"', '/', $checkin);
-                           $newDate = date("Y/m/d", strtotime($date));
-                       echo $newDate
-                           ?>'))
+                    $(function () {
+                        var reserved_days=[];
+                        <?php
+                        include 'admin/connect.php';
+                        global $conn;
+                        $query = $conn->query("SELECT checkin, checkout FROM `reservations`");
 
-//                    for($date=$checkin; $date<=$checkout; $date=$date+86400){
-//                        $newDate = date("d-m-Y", strtotime($date)); ?>
-//                        reserved_days.push(new Date('<?php
-//                            //$newDate = date("d-m-Y", strtotime($date));
-//                            echo $newDate   ?>//')
-//                        );
+                        while($fetch = $query->fetch_array()) {
+                        $checkin = date($fetch['checkin']);
+                        $checkout = date($fetch['checkout']);
+
+                        while(strtotime($checkin)<=strtotime($checkout)) {?>
+                        reserved_days.push(new Date('<?php
+                            $date = str_replace('-"', '/', $checkin);
+                            $newDate = date("Y/m/d", strtotime($date));
+                            echo $newDate
+                            ?>'));
 
 
-                    <?php
-                        //}
-                    //}
+                        <?php
+                        $date = str_replace('-"', '/', $checkin);
+                        $checkin=date("Y/m/d", strtotime($date.'+1 day'));
                         }
-                    ?>
+                        }
+                        ?>
 
                         $(document).ready(function () {
-                        var dateToday = new Date();
-                        $(function() {
-                            $("#datepicker1").datepicker({
-                                numberOfMonths:3,
-                                dateFormat: "dd-mm-yy",
-                                minDate: dateToday,
-                                beforeShowDay: function(date) {
-                                    //var highlight = reserved_days[date];
-                                    for(var i=0;i<reserved_days.length;i++){
-                                        if(reserved_days[i].getTime() === date.getTime()){
-                                            return [false, "event", 'Not available'];
+                            var dateToday = new Date();
+                            $(function() {
+                                $("#datepicker1").datepicker({
+                                    numberOfMonths:3,
+                                    dateFormat: "dd-mm-yy",
+                                    minDate: dateToday,
+                                    beforeShowDay: function(date) {
+                                        //var highlight = reserved_days[date];
+                                        for(var i=0;i<reserved_days.length;i++){
+                                            if(reserved_days[i].getTime() === date.getTime()){
+                                                return [false, "event", 'Not available'];
+                                            }
                                         }
+                                        return [true, '', ''];
+
                                     }
-                                    return [true, '', ''];
-
-                                }
+                                });
                             });
-                        });
 
-                        //var previousDate = $( "#datepicker1" ).datepicker( "getDate" );
-                        $(function() {
-                            $("#datepicker2").datepicker({
-                                numberOfMonths:3,
-                                dateFormat: "dd-mm-yy",
-                                minDate: dateToday,
-                                beforeShowDay: function(date) {
-                                    //var highlight = reserved_days[date];
-                                    for (var i = 0; i < reserved_days.length; i++) {
-                                        if (reserved_days[i].getTime() === date.getTime()) {
-                                            return [false, "event", 'Not available'];
+                            //var previousDate = $( "#datepicker1" ).datepicker( "getDate" );
+                            $(function() {
+                                $("#datepicker2").datepicker({
+                                    numberOfMonths:3,
+                                    dateFormat: "dd-mm-yy",
+                                    minDate: dateToday,
+                                    beforeShowDay: function(date) {
+                                        for (var i = 0; i < reserved_days.length; i++) {
+                                            if (reserved_days[i].getTime() === date.getTime()) {
+                                                return [false, "event", 'Not available'];
+                                            }
                                         }
+                                        return [true, '', ''];
                                     }
-                                    return [true, '', ''];
-                                }
 
 
+                                });
                             });
-                        });
-                        let startDate, endDate;
-                        $('#datepicker1').change(function() {
-                            startDate = $(this).datepicker('getDate');
-                            $("#datepicker2").datepicker("option", "minDate", startDate);
-                        });
+                            let startDate, endDate;
+                            $('#datepicker1').change(function() {
+                                startDate = $(this).datepicker('getDate');
+                                $("#datepicker2").datepicker("option", "minDate", startDate);
+                            });
 
-                        $('#datepicker2').change(function() {
-                            endDate = $(this).datepicker('getDate');
-                            $("#datepicker1").datepicker("option", "maxDate", endDate);
-                        });
+                            $('#datepicker2').change(function() {
+                                endDate = $(this).datepicker('getDate');
+                                $("#datepicker1").datepicker("option", "maxDate", endDate);
+                            });
 
+                        });
                     });
-                   });
-                   // });
+                    // });
 
                 </script>
+                <form method="post" action="add_reservation.php">
+                <input type="hidden" name="id" value="<?php echo $house_id?>">
+                    <h3>Choose Check-In Date</h3>
+                Date: <input type="text" id="datepicker1" name="datepicker1">
+                <br /><br />
+                <h3>Choose Check-Out Date</h3>
+                Date: <input type="text" id="datepicker2" name="datepicker2">
+
+
+
+                    <br/><br/>
+                    <button class="btn btn-outline-success" type="submit" name="add_reservation">Reserve</button>
+                </form>
             </div>
+
         </div>
+
     </div>
+
 </div>
 
 </body>

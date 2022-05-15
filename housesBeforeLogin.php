@@ -69,7 +69,7 @@ session_start();?>
                         <h2><?php echo $fetch['location']?></h2>
                         <h3><?php echo "Capacity: ". $fetch['capacity']." people"?></h3>
                         <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
-                        <h4 style = "color:green;"><?php echo "Price: €".$fetch['price'].".00/night"?></h4>
+                        <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                         <br /><br />
                         <a style = "margin-left:80px;" href = "account/login.html"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
                     </div>
