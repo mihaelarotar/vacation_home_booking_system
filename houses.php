@@ -22,6 +22,9 @@ session_start();?>
             text-align: center;
             padding: 20px 0 20px 0;
         }
+        .nav-link.active {
+            color:green !important;
+        }
     </style></head>
 <body>
 <h1>Choose your dream vacation home today!</h1>
@@ -76,7 +79,7 @@ session_start();?>
                 ?>
                 <div class = "well" style = "height:300px; width:100%;">
                     <div style = "float:left;">
-                        <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350"/>
+                        <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350" alt="photo"/>
                     </div>
                     <div style = "float:left; margin-left:10px;">
                         <h2><?php echo $fetch['location']?></h2>

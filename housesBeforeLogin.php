@@ -71,7 +71,9 @@ session_start();?>
                         <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
                         <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                         <br /><br />
-                        <a style = "margin-left:80px;" href = "account/login.html"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                        <a style = "margin-left:80px;" href = "account/login.html"
+                        <button class="btn btn-outline-success" type="submit"">Reserve</button>
+                        </a>
                     </div>
                 </div>
                 <?php

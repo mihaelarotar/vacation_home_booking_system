@@ -12,7 +12,7 @@ global $house_id?>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link href="CSS/Master.css" rel="stylesheet" type="text/css" />
+<!--    <link href="CSS/Master.css" rel="stylesheet" type="text/css" />-->
 
     <style>
         :root {
@@ -87,7 +87,7 @@ global $house_id?>
             <div class = "well" style = "height:300px; width:100%;">
 
                 <div style = "float:left;">
-                    <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350"/>
+                    <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350" alt="photo"/>
                 </div>
                 <div style = "float:left; margin-left:10px;">
                     <h2><?php echo $fetch['location']?></h2>
@@ -105,7 +105,7 @@ global $house_id?>
                         <?php
                         include 'admin/connect.php';
                         global $conn;
-                        $query = $conn->query("SELECT checkin, checkout FROM `reservations`");
+                        $query = $conn->query("SELECT checkin, checkout FROM `reservations` WHERE `house_id` = '$_REQUEST[id]'");
 
                         while($fetch = $query->fetch_array()) {
                         $checkin = date($fetch['checkin']);
@@ -130,6 +130,7 @@ global $house_id?>
                             var dateToday = new Date();
                             $(function() {
                                 $("#datepicker1").datepicker({
+                                    //defaultDate: "01/01/1900",
                                     numberOfMonths:3,
                                     dateFormat: "dd-mm-yy",
                                     minDate: dateToday,
@@ -149,6 +150,7 @@ global $house_id?>
                             //var previousDate = $( "#datepicker1" ).datepicker( "getDate" );
                             $(function() {
                                 $("#datepicker2").datepicker({
+                                    defaultDate: "01/01/1900",
                                     numberOfMonths:3,
                                     dateFormat: "dd-mm-yy",
                                     minDate: dateToday,
@@ -183,12 +185,12 @@ global $house_id?>
                 <form method="post" action="add_reservation.php">
                 <input type="hidden" name="id" value="<?php echo $house_id?>">
                     <h3>Choose Check-In Date</h3>
-                Date: <input type="text" id="datepicker1" name="datepicker1">
+                <label for="datepicker1"> Date: </label>
+                    <input type="text" id="datepicker1" name="datepicker1">
                 <br /><br />
                 <h3>Choose Check-Out Date</h3>
-                Date: <input type="text" id="datepicker2" name="datepicker2">
-
-
+                <label for="datepicker2"> Date: </label>
+                    <input type="text" id="datepicker2" name="datepicker2">
 
                     <br/><br/>
                     <button class="btn btn-outline-success" type="submit" name="add_reservation">Reserve</button>

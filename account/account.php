@@ -1,7 +1,7 @@
 <?php
 session_start();?>
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
         <title>Vacation home</title>
         <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Poppins:wght@200&display=swap" rel="stylesheet">
@@ -72,27 +72,32 @@ session_start();?>
             <div class = "alert alert-info">Account / Change Account</div>
 
             <br />
-            <div class = "col-md-4" style="justify-content: center; allign-items: center">
+            <div class = "col-md-4" style="justify-content: center; align-items: center">
                 <form method = "POST" action = "edit_account.php?id=<?php echo $_SESSION['name']?>">
                     <div class = "form-group" >
-                        <label>Username </label>
+                        <label>Username
                         <input type = "text" class = "form-control" value = "<?php echo $_SESSION['name']?>" name = "username" />
+                        </label>
                     </div>
                     <div class = "form-group">
-                        <label>First name </label>
+                        <label>First name
                         <input type = "text" class = "form-control" value = "<?php echo $_SESSION['firstName']?>" name = "firstName" />
+                        </label>
                     </div>
                     <div class = "form-group">
-                        <label>Last name </label>
+                        <label>Last name
                         <input type = "text" class = "form-control" value = "<?php echo $_SESSION['lastName']?>" name = "lastName" />
+                        </label>
                     </div>
                     <div class = "form-group">
-                        <label>Email </label>
+                        <label>Email
                         <input type = "text" class = "form-control" value = "<?php echo $_SESSION['email']?>" name = "email" />
+                        </label>
                     </div>
                     <div class = "form-group">
-                        <label>New Password </label>
+                        <label>New Password
                         <input type = "password" class = "form-control"  name = "password" />
+                        </label>
                     </div>
                     <br />
                     <div class = "form-group">

@@ -22,6 +22,9 @@ session_start();?>
             text-align: center;
             padding: 20px 0 20px 0;
         }
+        .nav-link.active {
+            color:green !important;
+        }
     </style></head>
 <body>
 <h1>Choose your dream vacation home today!</h1>
@@ -38,10 +41,10 @@ session_start();?>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="houses.php">See houses</a>
+                        <a class="nav-link" href="houses.php">See houses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="your_houses.php">Your houses</a>
+                        <a class="nav-link active" aria-current="page" href="#">Your houses</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="your_reservations.php">Your Reservations</a>
@@ -68,7 +71,8 @@ session_start();?>
 <div style = "margin-left:0;" class = "container">
     <div class = "panel panel-default">
         <div class = "panel-body">
-
+            <button class="btn btn-outline-success" href="" id="add_house" name="aff_house">Host a new home</button>
+            <br/><br/>
             <?php
             include 'admin/connect.php';
             global $conn;
@@ -90,7 +94,7 @@ session_start();?>
                             <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
                             <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                             <br />
-                            <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                            <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"<button class="btn btn-outline-success" type="submit"">Edit house</button></a>
                         </div>
                     </div>
                     <?php

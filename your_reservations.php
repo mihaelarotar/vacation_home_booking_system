@@ -22,6 +22,9 @@ session_start();?>
             text-align: center;
             padding: 20px 0 20px 0;
         }
+        .nav-link.active {
+            color:green !important;
+        }
     </style></head>
 <body>
 <h1>Choose your dream vacation home today!</h1>
@@ -38,13 +41,13 @@ session_start();?>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="houses.php">See houses</a>
+                        <a class="nav-link" href="houses.php">See houses</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="your_houses.php">Your houses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="your_reservations.php">Your Reservations</a>
+                        <a class="nav-link active" href="#">Your Reservations</a>
                     </li>
 
 
@@ -85,10 +88,13 @@ session_start();?>
                             <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350"/>
                         </div>
                         <div style = "float:left; margin-left:10px;">
-                            <h2><?php echo $fetch['location']?></h2>
-                            <h3><?php echo "Capacity: ". $fetch['capacity']." people"?></h3>
-                            <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
-                            <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
+                            <h2 style="color: green"><?php echo $fetch['location']?></h2>
+                            <h4><?php echo "Capacity: ". $fetch['capacity']." people"?></h4>
+                            <h4><?php echo "Hosted by: ". $fetch['hostedBy']?></h4>
+                            <h4><?php echo "Check-in: ". date("d/m/Y", strtotime($fetch['checkin']))?></h4>
+                            <h4><?php echo "Check-out: ". date("d/m/Y", strtotime($fetch['checkout']))?></h4>
+<!--                            <h4 style = "color:green;">--><?php //echo "Price: €".$fetch['price']."/night"?><!--</h4>-->
+                            <h3 style="color: green"><?php echo "Total price: €". $fetch['nights']*$fetch['price']." "?></h3></h3>
                             <br />
 <!--                            <a style = "margin-left:50px;" href = "reserve.php?id=--><?php //echo $fetch['id']?><!--"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>-->
                         </div>
