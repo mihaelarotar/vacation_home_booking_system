@@ -22,6 +22,13 @@ session_start();?>
                 padding: 20px 0 20px 0;
                 font-style: normal;
             }
+            .navbar .dropdown-menu-right {
+                right:0;
+                left:auto;
+            }
+            .nav-link.active {
+                color:green !important;
+            }
         </style>
     </head>
     <body>
@@ -52,14 +59,22 @@ session_start();?>
                     </ul>
                     <div class="d-flex">
                         <a class="nav-link" href="logout.php">Log Out</a>
-                        <button class="btn btn-outline-success" type="submit" onclick="location.href='account.php'"><?php
-                            if(isset($_SESSION['name'])) {
-                                $username = $_SESSION['name'];
-                            } else {
-                                die('$'."_SESSION['name'] isn't set because you had never been at file one");
-                            }
-                            echo $username;
-                            ?></button>
+                        <div class="nav-item dropdown">
+                            <button type="button" id="dropdownMenuButton" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
+                                if(isset($_SESSION['name'])) {
+                                    $username = $_SESSION['name'];
+                                } else {
+                                    die('Account');
+                                }
+                                echo $username;
+                                ?></button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="account/account.php">Account settings</a>
+                                <a class="dropdown-item" href="#">Change password</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Delete account</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,39 +84,42 @@ session_start();?>
 
     <div class = "panel panel-default" style="text-align: center">
         <div class = "panel-body">
-            <div class = "alert alert-info">Account / Change Account</div>
+            <div class = "alert alert-info">Change account settings</div>
 
             <br />
             <div class = "col-md-4" style="justify-content: center; align-items: center">
+                <?php
+                include '../admin/connect.php';
+                global $conn;
+                $query = $conn->query("SELECT * FROM `accounts` WHERE `username` = '$_SESSION[name]'");
+                //            $stmt->bind_param("i", $_POST['id']);
+                $fetch = $query->fetch_array();
+                //$house_id=$fetch['id'];
+                ?>
                 <form method = "POST" action = "edit_account.php?id=<?php echo $_SESSION['name']?>">
                     <div class = "form-group" >
                         <label>Username
-                        <input type = "text" class = "form-control" value = "<?php echo $_SESSION['name']?>" name = "username" />
+                        <input type = "text" class = "form-control" value = "<?php echo $_SESSION['name']?>" name = "username" disabled/>
                         </label>
                     </div>
                     <div class = "form-group">
                         <label>First name
-                        <input type = "text" class = "form-control" value = "<?php echo $_SESSION['firstName']?>" name = "firstName" />
+                        <input type = "text" class = "form-control" value = "<?php echo $fetch['firstName']?>" name = "firstName" />
                         </label>
                     </div>
                     <div class = "form-group">
                         <label>Last name
-                        <input type = "text" class = "form-control" value = "<?php echo $_SESSION['lastName']?>" name = "lastName" />
+                        <input type = "text" class = "form-control" value = "<?php echo $fetch['lastName']?>" name = "lastName" />
                         </label>
                     </div>
                     <div class = "form-group">
                         <label>Email
-                        <input type = "text" class = "form-control" value = "<?php echo $_SESSION['email']?>" name = "email" />
-                        </label>
-                    </div>
-                    <div class = "form-group">
-                        <label>New Password
-                        <input type = "password" class = "form-control"  name = "password" />
+                        <input type = "text" class = "form-control" value = "<?php echo $fetch['email']?>" name = "email" />
                         </label>
                     </div>
                     <br />
                     <div class = "form-group">
-                        <button class="btn btn-outline-success" type="submit" > Save Changes</button>
+                        <button class="btn btn-outline-success" name="edit_account" type="submit" > Save changes</button>
                     </div>
                 </form>
             </div>

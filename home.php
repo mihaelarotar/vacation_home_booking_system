@@ -22,6 +22,11 @@ session_start();?>
             padding: 20px 0 20px 0;
             font-style: normal;
         }
+        .navbar .dropdown-menu-right {
+            right:0;
+            left:auto;
+        }
+
     </style>
 </head>
 <body>
@@ -54,14 +59,22 @@ session_start();?>
                 </ul>
                 <div class="d-flex">
                     <a class="nav-link" href="account/logout.php">Log Out</a>
-                    <button class="btn btn-outline-success" type="submit" onclick="location.href='account/account.php'"><?php
-                        if(isset($_SESSION['name'])) {
-                            $username = $_SESSION['name'];
-                        } else {
-                            die('$'."_SESSION['name'] isn't set because you had never been at file one");
-                        }
-                        echo $username;
-                        ?></button>
+                    <div class="nav-item dropdown">
+                        <button type="button" id="dropdownMenuButton" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
+                            if(isset($_SESSION['name'])) {
+                                $username = $_SESSION['name'];
+                            } else {
+                                die('Account');
+                            }
+                            echo $username;
+                            ?></button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="account/account.php">Account settings</a>
+                            <a class="dropdown-item" href="#">Change password</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Delete account</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
