@@ -76,9 +76,9 @@ global $house_id?>
                             ?></button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="account/account.php">Account settings</a>
-                            <a class="dropdown-item" href="#">Change password</a>
+                            <a class="dropdown-item" href="account/change_password.php">Change password</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Delete account</a>
+                            <a class="dropdown-item disabled" href="#">Delete account</a>
                         </div>
                     </div>
                 </div>
@@ -165,7 +165,6 @@ global $house_id?>
                             //var previousDate = $( "#datepicker1" ).datepicker( "getDate" );
                             $(function() {
                                 $("#datepicker2").datepicker({
-                                    defaultDate: "01/01/1900",
                                     numberOfMonths:3,
                                     dateFormat: "dd-mm-yy",
                                     minDate: dateToday,

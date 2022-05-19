@@ -55,25 +55,47 @@ session_start();?>
     <div class = "panel panel-default">
         <div class = "panel-body">
             <!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
+            <form name="sort" action="" method="post">
+                <select name="order">
+                    <option value="choose" selected>Choose here</option>
+                    <option value="priceAsc">Price ascending</option>
+                    <option value="priceDesc">Price descending</option>
+                    <!--                    <option value="publisher">Publisher</option>-->
+                    <!--                    <option value="isbn">Book ISBN-10</option>-->
+                </select>
+                <input type="submit" value="Sort houses" />
+            </form>
+            <br/>
             <?php
             include 'admin/connect.php';
             global $conn;
-            $query = $conn->query("SELECT * FROM `houses` ORDER BY `price` ASC");
-            while($fetch = $query->fetch_array()){
+            $query = 'SELECT * FROM `houses`';
+            if (!empty($_POST['order'])) {
+                switch ($_POST['order']) {
+                    case 'priceAsc':
+                        $query .= ' ORDER BY price ASC';
+                        break;
+                    case 'priceDesc':
+                        $query .= ' ORDER BY price DESC';
+                        break;
+                    case 'choose':
+                        break;
+                }
+            }
+            $results = $conn->query( $query );
+            while($fetch = $results->fetch_array()){
                 ?>
                 <div class = "well" style = "height:300px; width:100%;">
                     <div style = "float:left;">
-                        <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350"/>
+                        <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350" alt="photo"/>
                     </div>
                     <div style = "float:left; margin-left:10px;">
                         <h2><?php echo $fetch['location']?></h2>
                         <h3><?php echo "Capacity: ". $fetch['capacity']." people"?></h3>
                         <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
                         <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
-                        <br /><br />
-                        <a style = "margin-left:80px;" href = "account/login.html"
-                        <button class="btn btn-outline-success" type="submit"">Reserve</button>
-                        </a>
+                        <br />
+                        <a style = "margin-left:50px;" href = "account/login.html"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
                     </div>
                 </div>
                 <?php

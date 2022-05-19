@@ -69,8 +69,8 @@ session_start();?>
                                 echo $username;
                                 ?></button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">Account settings</a>
-                                <a class="dropdown-item" href="change_password.php">Change password</a>
+                                <a class="dropdown-item" href="account.php">Account settings</a>
+                                <a class="dropdown-item" href="#">Change password</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item disabled" href="#">Delete account</a>
                             </div>
@@ -84,7 +84,7 @@ session_start();?>
 
     <div class = "panel panel-default" style="text-align: center">
         <div class = "panel-body">
-            <div class = "alert alert-info">Change account settings</div>
+            <div class = "alert alert-info">Change password</div>
 
             <br />
             <div class = "col-md-4" style="justify-content: center; align-items: center">
@@ -96,30 +96,26 @@ session_start();?>
                 $fetch = $query->fetch_array();
                 //$house_id=$fetch['id'];
                 ?>
-                <form method = "POST" action = "edit_account.php?id=<?php echo $_SESSION['name']?>">
+                <form method = "POST" action = "change_password_query.php?id=<?php echo $_SESSION['name']?>">
                     <div class = "form-group" >
-                        <label>Username
-                        <input type = "text" class = "form-control" value = "<?php echo $_SESSION['name']?>" name = "username" disabled/>
+                        <label>Old password
+                            <input type = "password" class = "form-control" name = "oldPassword"/>
                         </label>
                     </div>
                     <div class = "form-group">
-                        <label>First name
-                        <input type = "text" class = "form-control" value = "<?php echo $fetch['firstName']?>" name = "firstName" />
+                        <label>New password
+                            <input type = "password" class = "form-control" name = "newPassword" />
                         </label>
                     </div>
                     <div class = "form-group">
-                        <label>Last name
-                        <input type = "text" class = "form-control" value = "<?php echo $fetch['lastName']?>" name = "lastName" />
+                        <label>Confirm password
+                            <input type = "password" class = "form-control" name = "confirmPassword" />
                         </label>
                     </div>
-                    <div class = "form-group">
-                        <label>Email
-                        <input type = "text" class = "form-control" value = "<?php echo $fetch['email']?>" name = "email" />
-                        </label>
-                    </div>
+
                     <br />
                     <div class = "form-group">
-                        <button class="btn btn-outline-success" name="edit_account" type="submit" > Save changes</button>
+                        <button class="btn btn-outline-success" name="change_password" type="submit" > Save changes</button>
                     </div>
                 </form>
             </div>

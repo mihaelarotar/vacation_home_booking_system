@@ -1,6 +1,5 @@
 <?php
-session_start();?>
-<?php
+session_start();
 include '../admin/connect.php';
 global $conn;
 if(ISSET($_POST['edit_account'])){

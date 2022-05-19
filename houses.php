@@ -69,9 +69,9 @@ session_start();?>
                             ?></button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="account/account.php">Account settings</a>
-                            <a class="dropdown-item" href="#">Change password</a>
+                            <a class="dropdown-item" href="account/change_password.php">Change password</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Delete account</a>
+                            <a class="dropdown-item disabled" href="#">Delete account</a>
                         </div>
                     </div>
                 </div>
@@ -83,11 +83,35 @@ session_start();?>
     <div class = "panel panel-default">
         <div class = "panel-body">
 <!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
+            <form name="sort" action="" method="post">
+                <select name="order">
+                    <option value="choose" selected>Choose here</option>
+                    <option value="priceAsc">Price ascending</option>
+                    <option value="priceDesc">Price descending</option>
+<!--                    <option value="publisher">Publisher</option>-->
+<!--                    <option value="isbn">Book ISBN-10</option>-->
+                </select>
+                <input type="submit" value="Sort houses" />
+            </form>
+            <br/>
             <?php
             include 'admin/connect.php';
             global $conn;
-            $query = $conn->query("SELECT * FROM `houses` ORDER BY `price` ASC");
-            while($fetch = $query->fetch_array()){
+            $query = 'SELECT * FROM `houses`';
+            if (!empty($_POST['order'])) {
+                switch ($_POST['order']) {
+                    case 'priceAsc':
+                        $query .= ' ORDER BY price ASC';
+                        break;
+                    case 'priceDesc':
+                        $query .= ' ORDER BY price DESC';
+                        break;
+                    case 'choose':
+                        break;
+                }
+            }
+            $results = $conn->query( $query );
+            while($fetch = $results->fetch_array()){
                 ?>
                 <div class = "well" style = "height:300px; width:100%;">
                     <div style = "float:left;">

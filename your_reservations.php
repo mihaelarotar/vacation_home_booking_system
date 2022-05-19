@@ -69,9 +69,9 @@ session_start();?>
                             ?></button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="account/account.php">Account settings</a>
-                            <a class="dropdown-item" href="#">Change password</a>
+                            <a class="dropdown-item" href="account/change_password.php">Change password</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Delete account</a>
+                            <a class="dropdown-item disabled" href="#">Delete account</a>
                         </div>
                     </div>
                 </div>
