@@ -43,15 +43,14 @@ if ($stmt = $conn->prepare('SELECT * FROM accounts WHERE username = ?')) {
             header('Location: ../home.php');
         } else {
             // Incorrect password
-            echo 'Incorrect password!';
+            echo("<script> alert('Incorrect password!');</script>");
         }
     } else {
         // Incorrect username
-        echo 'Incorrect username!';
+        echo("<script> alert('Incorrect username!');</script>");
     }
 
     $stmt->close();
 }
 
 
-?>

@@ -23,26 +23,12 @@ $results = $conn->query($query);
 <!DOCTYPE html>
 <html lang = "en">
 <head>
-    <title>Vacation home</title>
+    <title>Vacation Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Poppins:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --dark_pink: #e82c7e;
-            --light_pink: #F1E4F3;
-        }
-        *{
-            font-family: Poppins, sans-serif;
-            /*background-color: var(--light_pink);*/
-        }
-        h1{
-            font-family: 'Merienda', cursive;
-            color: var(--dark_pink);
-            text-align: center;
-            padding: 20px 0 20px 0;
-        }
-    </style></head>
+    <link href="page_style.css" rel="stylesheet">
+</head>
 <body>
 <h1>Choose your dream vacation home today!</h1>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -104,7 +90,7 @@ $results = $conn->query($query);
                         <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
                         <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                         <br />
-                        <a style = "margin-left:50px;" href = "account/login.html"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                        <a style = "margin-left:50px;" href = "account/login.html"><button class="btn btn-outline-success" type="submit"">Reserve</button></a>
                     </div>
                 </div>
                 <?php

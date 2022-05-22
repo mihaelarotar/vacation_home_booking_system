@@ -28,7 +28,7 @@ if ($stmt = $conn->prepare('SELECT password FROM accounts WHERE username = ?')) 
     $stmt->store_result();
     if ($stmt->num_rows > 0) {
         // Username already exists
-        echo 'Username exists, please choose another!';
+        echo("<script> alert('Username exists, please choose another!');</script>");
     } else {
         // Username doesn't exist, insert new account
         if ($stmt = $conn->prepare('INSERT INTO accounts (username, password, email, firstName, lastName) VALUES (?, ?, ?, ?, ?)')) {
@@ -49,4 +49,3 @@ if ($stmt = $conn->prepare('SELECT password FROM accounts WHERE username = ?')) 
     echo 'Could not prepare statement!';
 }
 $conn->close();
-?>

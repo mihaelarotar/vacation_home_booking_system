@@ -1,0 +1,21 @@
+:root {
+    --dark_pink: #e82c7e;
+    --light_pink: #F1E4F3;
+}
+*{
+    font-family: Poppins, sans-serif;
+    /*background-color: var(--light_pink);*/
+}
+h1{
+    font-family: 'Merienda', cursive;
+    color: var(--dark_pink);
+    text-align: center;
+    padding: 20px 0 20px 0;
+}
+.navbar .dropdown-menu-right {
+    right:0;
+    left:auto;
+}
+.nav-link.active {
+    color:green !important;
+}

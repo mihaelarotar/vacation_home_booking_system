@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Vacation home</title>
+    <title>Vacation Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Poppins:wght@200&display=swap" rel="stylesheet">
     <link href="account/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    <style>
-        *{
-            font-family: Poppins, sans-serif;
-            /*background-color: var(--light_pink);*/
-        }
-        h1{
-            font-family: 'Merienda', cursive;
-            color: var(--dark_pink);
-            text-align: center;
-            padding: 20px 0 20px 0;
-            font-style: normal;
-        }
-    </style>
+    <link href="page_style.css" rel="stylesheet">
 </head>
 <body>
 <h1>Choose your dream vacation home today!</h1>
@@ -37,7 +25,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                    <li class="nav-item">
-                        <a class="nav-link active" href="houses_before_login.php">See houses</a>
+                        <a class="nav-link" href="houses_before_login.php">See houses</a>
                     </li>
 
 
@@ -67,7 +55,7 @@
                         </div>
                         <div class="col-lg-3">
                             <label for="people" class="form-label" style="font-weight: 500;">People</label>
-                            <input type="text" class="form-control shadow-none" id="people" name="people">
+                            <input type="number" min="1" class="form-control shadow-none" id="people" name="people">
                         </div>
                         <div class="col-lg-3" style="text-align: center">
                             <button class="btn btn-outline-success" type="submit" name="search_homes">Search</button

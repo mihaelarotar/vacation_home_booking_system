@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../admin/connect.php';
+include 'admin/connect.php';
 global $conn;
 if(ISSET($_POST['edit_account'])){
     $firstName = $_POST['firstName'] ?? "";

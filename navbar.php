@@ -5,7 +5,7 @@ session_start();?>
 <head>
     <title>Vacation Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Poppins:wght@200&display=swap" rel="stylesheet">
-    <link href="account/style.css" rel="stylesheet">
+<!--    <link href="style.css" rel="stylesheet">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
@@ -19,28 +19,26 @@ session_start();?>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand me-4 fw-bold h-font" href="home.php">Vacation Home</a>
+            <a class="navbar-brand me-4 fw-bold h-font" href="../home.php">Vacation Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
                     <li class="nav-item">
-                        <a class="nav-link" href="houses.php">See houses</a>
+                        <a class="nav-link active" href="../houses.php">See houses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="your_houses.php">Your houses</a>
+                        <a class="nav-link" href="../your_houses.php">Your houses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="your_reservations.php">Your Reservations</a>
+                        <a class="nav-link" href="../your_reservations.php">Your Reservations</a>
                     </li>
-
 
 
                 </ul>
                 <div class="d-flex">
-                    <a class="nav-link" href="account/logout.php">Log Out</a>
+                    <a class="nav-link" href="logout.php">Log Out</a>
                     <div class="nav-item dropdown">
                         <button type="button" id="dropdownMenuButton" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
                             if(isset($_SESSION['name'])) {
@@ -51,7 +49,7 @@ session_start();?>
                             echo $username;
                             ?></button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="account.php">Account settings</a>
+                            <a class="dropdown-item" href="#">Account settings</a>
                             <a class="dropdown-item" href="change_password.php">Change password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item disabled" href="#">Delete account</a>
@@ -61,36 +59,9 @@ session_start();?>
             </div>
         </div>
     </nav>
-    <img src="images/home.png" alt="photo" width=100% height=25%>
 
-    <div class="container">
-        <div class="row align-items-end">
-            <div class="col-lg-12 bg-white shadow p-3 rounded">
-                <h5>Check Booking Availability</h5>
-                <form method="post" action="search_homes.php">
-                    <div class="row align-items-end">
-                        <div class="col-lg-3">
-                            <label for="checkin" class="form-label" style="font-weight: 500;">Check-In</label>
-                            <input type="date" class="form-control shadow-none" id="checkin" name="checkin">
-                        </div>
-                        <div class="col-lg-3">
-                            <label for="checkout" class="form-label" style="font-weight: 500;">Check-Out</label>
-                            <input type="date" class="form-control shadow-none" id="checkout" name="checkout">
-                        </div>
-                        <div class="col-lg-3">
-                            <label for="people" class="form-label" style="font-weight: 500;">People</label>
-                            <input type="number" min="1" class="form-control shadow-none" id="people" name="people">
-                        </div>
-                        <div class="col-lg-3" style="text-align: center">
-                            <button class="btn btn-outline-success" type="submit" name="search_homes">Search</button
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </ul>
+
 
 </body>
 </html>
-

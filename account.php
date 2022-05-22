@@ -3,33 +3,13 @@ session_start();?>
     <!DOCTYPE html>
     <html lang="en">
     <head>
-        <title>Vacation home</title>
+        <title>Vacation Home</title>
         <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Poppins:wght@200&display=swap" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
+        <link href="account/style.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-        <style>
-
-            *{
-                font-family: Poppins, sans-serif;
-                /*background-color: var(--light_pink);*/
-            }
-            h1{
-                font-family: 'Merienda', cursive;
-                color: var(--dark_pink);
-                text-align: center;
-                padding: 20px 0 20px 0;
-                font-style: normal;
-            }
-            .navbar .dropdown-menu-right {
-                right:0;
-                left:auto;
-            }
-            .nav-link.active {
-                color:green !important;
-            }
-        </style>
+        <link href="page_style.css" rel="stylesheet">
     </head>
     <body>
     <h1>Choose your dream vacation home today!</h1>
@@ -39,26 +19,26 @@ session_start();?>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand me-4 fw-bold h-font" href="../home.php">Vacation Home</a>
+                <a class="navbar-brand me-4 fw-bold h-font" href="home.php">Vacation Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="../houses.php">See houses</a>
+                            <a class="nav-link active" href="houses.php">See houses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../your_houses.php">Your houses</a>
+                            <a class="nav-link" href="your_houses.php">Your houses</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../your_reservations.php">Your Reservations</a>
+                            <a class="nav-link" href="your_reservations.php">Your Reservations</a>
                         </li>
 
 
                     </ul>
                     <div class="d-flex">
-                        <a class="nav-link" href="logout.php">Log Out</a>
+                        <a class="nav-link" href="account/logout.php">Log Out</a>
                         <div class="nav-item dropdown">
                             <button type="button" id="dropdownMenuButton" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
                                 if(isset($_SESSION['name'])) {
@@ -89,7 +69,7 @@ session_start();?>
             <br />
             <div class = "col-md-4" style="justify-content: center; align-items: center">
                 <?php
-                include '../admin/connect.php';
+                include 'admin/connect.php';
                 global $conn;
                 $query = $conn->query("SELECT * FROM `accounts` WHERE `username` = '$_SESSION[name]'");
                 //            $stmt->bind_param("i", $_POST['id']);
@@ -124,7 +104,6 @@ session_start();?>
                 </form>
             </div>
 
-    </body>
-    </html>
+</body>
+</html>
 
-<?php

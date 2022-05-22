@@ -3,33 +3,12 @@ session_start();?>
 <!DOCTYPE html>
 <html lang = "en">
 <head>
-    <title>Vacation home</title>
+    <title>Vacation Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Poppins:wght@200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <style>
-        :root {
-            --dark_pink: #e82c7e;
-            --light_pink: #F1E4F3;
-        }
-        *{
-            font-family: Poppins, sans-serif;
-            /*background-color: var(--light_pink);*/
-        }
-        h1{
-            font-family: 'Merienda', cursive;
-            color: var(--dark_pink);
-            text-align: center;
-            padding: 20px 0 20px 0;
-        }
-        .navbar .dropdown-menu-right {
-            right:0;
-            left:auto;
-        }
-        .nav-link.active {
-            color:green !important;
-        }
-    </style></head>
+    <link href="page_style.css" rel="stylesheet">
+</head>
 <body>
 <h1>Choose your dream vacation home today!</h1>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -38,7 +17,7 @@ session_start();?>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand me-4 fw-bold h-font" href="home.php">Vacation home</a>
+            <a class="navbar-brand me-4 fw-bold h-font" href="home.php">Vacation Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -68,8 +47,8 @@ session_start();?>
                             echo $username;
                             ?></button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="account/account.php">Account settings</a>
-                            <a class="dropdown-item" href="account/change_password.php">Change password</a>
+                            <a class="dropdown-item" href="account.php">Account settings</a>
+                            <a class="dropdown-item" href="change_password.php">Change password</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item disabled" href="#">Delete account</a>
                         </div>
@@ -84,13 +63,15 @@ session_start();?>
         <div class = "panel-body">
 <!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
             <form name="sort" action="" method="post">
-                <select name="order">
-                    <option value="choose" selected>Choose here</option>
-                    <option value="priceAsc">Price ascending</option>
-                    <option value="priceDesc">Price descending</option>
-<!--                    <option value="publisher">Publisher</option>-->
-<!--                    <option value="isbn">Book ISBN-10</option>-->
-                </select>
+                <label>
+                    <select name="order">
+                        <option value="choose" selected>Choose here</option>
+                        <option value="priceAsc">Price ascending</option>
+                        <option value="priceDesc">Price descending</option>
+    <!--                    <option value="publisher">Publisher</option>-->
+    <!--                    <option value="isbn">Book ISBN-10</option>-->
+                    </select>
+                </label>
                 <input type="submit" value="Sort houses" />
             </form>
             <br/>
@@ -123,7 +104,7 @@ session_start();?>
                         <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
                         <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                         <br />
-                        <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                        <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"><button class="btn btn-outline-success" type="submit"">Reserve</button></a>
                     </div>
                 </div>
                 <?php

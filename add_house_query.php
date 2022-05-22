@@ -2,10 +2,11 @@
 session_start();
 include 'admin/connect.php';
 global $conn;
-if(isset($_POST['add_house'])) {
+if(isset($_POST['add_house']) and isset($_POST['location'])) {
     if (empty($_POST['location']) || empty($_POST['capacity']) || empty($_POST['price']) || empty($_FILES['photo']['name'])) {
         // One or more values are empty.
-        exit('Please complete all required fields.');
+        echo("<script> alert('Please complete all required fields.');</script>");
+        exit();
     }
 
     $location=$_POST['location'];
