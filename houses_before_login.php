@@ -22,13 +22,6 @@ session_start();?>
             text-align: center;
             padding: 20px 0 20px 0;
         }
-        .navbar .dropdown-menu-right {
-            right:0;
-            left:auto;
-        }
-        .nav-link.active {
-            color:green !important;
-        }
     </style></head>
 <body>
 <h1>Choose your dream vacation home today!</h1>
@@ -38,42 +31,21 @@ session_start();?>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand me-4 fw-bold h-font" href="home.php">Vacation home</a>
+            <a class="navbar-brand me-4 fw-bold h-font" href="index.php">Vacation home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="houses.php">See houses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="your_houses.php">Your houses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="your_reservations.php">Your Reservations</a>
+                        <a class="nav-link active" href="#">See houses</a>
                     </li>
 
 
                 </ul>
                 <div class="d-flex">
-                    <a class="nav-link" href="account/logout.php">Log Out</a>
-                    <div class="nav-item dropdown">
-                        <button type="button" id="dropdownMenuButton" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
-                            if(isset($_SESSION['name'])) {
-                                $username = $_SESSION['name'];
-                            } else {
-                                die('Account');
-                            }
-                            echo $username;
-                            ?></button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="account/account.php">Account settings</a>
-                            <a class="dropdown-item" href="account/change_password.php">Change password</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item disabled" href="#">Delete account</a>
-                        </div>
-                    </div>
+                    <a class="nav-link" href="account/login.html">Log In</a>
+                    <button class="btn btn-outline-success" type="submit" onclick="location.href='account/register.html'">Register</button>
                 </div>
             </div>
         </div>
@@ -82,14 +54,14 @@ session_start();?>
 <div style = "justify-content: center; align-items: center" class = "container">
     <div class = "panel panel-default">
         <div class = "panel-body">
-<!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
+            <!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
             <form name="sort" action="" method="post">
                 <select name="order">
                     <option value="choose" selected>Choose here</option>
                     <option value="priceAsc">Price ascending</option>
                     <option value="priceDesc">Price descending</option>
-<!--                    <option value="publisher">Publisher</option>-->
-<!--                    <option value="isbn">Book ISBN-10</option>-->
+                    <!--                    <option value="publisher">Publisher</option>-->
+                    <!--                    <option value="isbn">Book ISBN-10</option>-->
                 </select>
                 <input type="submit" value="Sort houses" />
             </form>
@@ -123,7 +95,7 @@ session_start();?>
                         <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
                         <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                         <br />
-                        <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                        <a style = "margin-left:50px;" href = "account/login.html"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>
                     </div>
                 </div>
                 <?php

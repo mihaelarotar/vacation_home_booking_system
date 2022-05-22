@@ -10,6 +10,7 @@ if (isset($_POST['add_reservation']) and !empty($_POST['datepicker1']) and !empt
     $account_username = $_SESSION['name'];
     $house_id=$_REQUEST['id'];
     $nights=date_diff(date_create($checkin), date_create($checkout));
+    $totalPrice=$_REQUEST['price_per_night']*$nights->days;
 
     $query=$conn->query("SELECT * FROM `reservations` WHERE `house_id` = '$_REQUEST[id]'");
 
@@ -24,8 +25,8 @@ if (isset($_POST['add_reservation']) and !empty($_POST['datepicker1']) and !empt
         }
 
     }
-    if ($statement=$conn->prepare("INSERT INTO reservations(account_username, house_id, nights, checkin, checkout) VALUES(?,?,?,?,?)")) {
-        $statement->bind_param('siiss', $account_username, $house_id, $nights->days, $checkin, $checkout);
+    if ($statement=$conn->prepare("INSERT INTO reservations(account_username, house_id, nights, checkin, checkout, totalPrice) VALUES(?,?,?,?,?,?)")) {
+        $statement->bind_param('siissi', $account_username, $house_id, $nights->days, $checkin, $checkout, $totalPrice);
         $statement->execute();
         $statement->close();
         header("location:your_reservations.php");

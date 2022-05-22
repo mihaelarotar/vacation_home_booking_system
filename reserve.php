@@ -86,7 +86,7 @@ global $house_id?>
         </div>
     </nav>
 </ul>
-<div style = "margin-left:0;" class = "container">
+<div style = "justify-content: center; align-items: center" class = "container">
 
     <div class = "panel panel-default">
         <div class = "panel-body">
@@ -98,6 +98,7 @@ global $house_id?>
 //            $stmt->bind_param("i", $_POST['id']);
             $fetch = $query->fetch_array();
             $house_id=$fetch['id'];
+            $price_per_night=$fetch['price'];
                 ?>
             <div class = "well" style = "height:300px; width:100%;">
 
@@ -198,6 +199,7 @@ global $house_id?>
                 </script>
                 <form method="post" action="add_reservation.php">
                 <input type="hidden" name="id" value="<?php echo $house_id?>">
+                <input type="hidden" name="price_per_night" value="<?php echo $price_per_night?>">
                     <h3>Choose Check-In Date</h3>
                 <label for="datepicker1"> Date: </label>
                     <input type="text" id="datepicker1" name="datepicker1">

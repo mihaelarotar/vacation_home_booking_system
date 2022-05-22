@@ -80,14 +80,14 @@ session_start();?>
     </nav>
 </ul>
 
-<div style = "margin-left:0;" class = "container">
+<div style = "justify-content: center; align-items: center" class = "container">
     <div class = "panel panel-default">
         <div class = "panel-body">
 
             <?php
             include 'admin/connect.php';
             global $conn;
-            $query = $conn->query("SELECT * FROM `houses` h inner join `reservations` r on h.id=r.house_id WHERE r.account_username='$_SESSION[name]'");
+            $query = $conn->query("SELECT * FROM `houses` h inner join `reservations` r on h.id=r.house_id WHERE r.account_username='$_SESSION[name]' order by checkin desc");
             $rows = $query->num_rows;
             if ($rows == 0) {
                 echo 'No reservations to show.';
@@ -106,7 +106,7 @@ session_start();?>
                             <h4><?php echo "Check-in: ". date("d/m/Y", strtotime($fetch['checkin']))?></h4>
                             <h4><?php echo "Check-out: ". date("d/m/Y", strtotime($fetch['checkout']))?></h4>
 <!--                            <h4 style = "color:green;">--><?php //echo "Price: €".$fetch['price']."/night"?><!--</h4>-->
-                            <h3 style="color: green"><?php echo "Total price: €". $fetch['nights']*$fetch['price']." "?></h3></h3>
+                            <h3 style="color: green"><?php echo "Total price: €". $fetch['totalPrice']." "?></h3></h3>
                             <br />
 <!--                            <a style = "margin-left:50px;" href = "reserve.php?id=--><?php //echo $fetch['id']?><!--"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>-->
                         </div>

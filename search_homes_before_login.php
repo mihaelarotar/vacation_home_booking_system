@@ -1,5 +1,25 @@
 <?php
-session_start();?>
+session_start();
+include 'admin/connect.php';
+global $conn;
+$people = $_POST['people'];
+$checkin = $_POST['checkin'];
+$checkout = $_POST['checkout'];
+$query = "SELECT * FROM houses where capacity>='$people' and id not in (SELECT house_id FROM reservations WHERE  (checkin <='$checkin' and '$checkin' < checkout) OR (checkin < '$checkout' and '$checkout' <= checkout))";
+if (!empty($_POST['order'])) {
+    switch ($_POST['order']) {
+        case 'priceAsc':
+            $query .= ' ORDER BY price ASC';
+            break;
+        case 'priceDesc':
+            $query .= ' ORDER BY price DESC';
+            break;
+        case 'choose':
+            break;
+    }
+}
+$results = $conn->query($query);
+?>
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -38,7 +58,7 @@ session_start();?>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">See houses</a>
+                        <a class="nav-link active" href="houses_before_login.php">See houses</a>
                     </li>
 
 
@@ -51,38 +71,27 @@ session_start();?>
         </div>
     </nav>
 </ul>
-<div style = "margin-left:0;" class = "container">
+<div style = "justify-content: center; align-items: center" class = "container">
     <div class = "panel panel-default">
         <div class = "panel-body">
             <!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
             <form name="sort" action="" method="post">
-                <select name="order">
-                    <option value="choose" selected>Choose here</option>
-                    <option value="priceAsc">Price ascending</option>
-                    <option value="priceDesc">Price descending</option>
-                    <!--                    <option value="publisher">Publisher</option>-->
-                    <!--                    <option value="isbn">Book ISBN-10</option>-->
-                </select>
+                <input type="hidden" name="people" value="<?php echo $people?>">
+                <input type="hidden" name="checkin" value="<?php echo $checkin?>">
+                <input type="hidden" name="checkout" value="<?php echo $checkout?>">
+                <label>
+                    <select name="order">
+                        <option value="choose" selected>Choose here</option>
+                        <option value="priceAsc">Price ascending</option>
+                        <option value="priceDesc">Price descending</option>
+                        <!--                    <option value="publisher">Publisher</option>-->
+                        <!--                    <option value="isbn">Book ISBN-10</option>-->
+                    </select>
+                </label>
                 <input type="submit" value="Sort houses" />
             </form>
             <br/>
             <?php
-            include 'admin/connect.php';
-            global $conn;
-            $query = 'SELECT * FROM `houses`';
-            if (!empty($_POST['order'])) {
-                switch ($_POST['order']) {
-                    case 'priceAsc':
-                        $query .= ' ORDER BY price ASC';
-                        break;
-                    case 'priceDesc':
-                        $query .= ' ORDER BY price DESC';
-                        break;
-                    case 'choose':
-                        break;
-                }
-            }
-            $results = $conn->query( $query );
             while($fetch = $results->fetch_array()){
                 ?>
                 <div class = "well" style = "height:300px; width:100%;">
