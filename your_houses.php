@@ -65,6 +65,7 @@ session_start();?>
     <div class = "panel panel-default">
         <div class = "panel-body">
             <a href="host_house.php"><button class="btn btn-outline-success" type="submit" id="add_house" name="add_house">Host a new home</button></a>
+            <a href="reservations.php"><button class="btn btn-outline-success" type="submit" id="show_reservations" name="show_reservations">See reservations</button></a>
             <br/><br/>
             <?php
             include 'admin/connect.php';

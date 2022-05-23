@@ -5,11 +5,16 @@ session_start();?>
 <head>
     <title>Vacation Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Merienda:wght@700&family=Poppins:wght@200&display=swap" rel="stylesheet">
-    <link href="account/style.css" rel="stylesheet">
+<!--    <link href="account/style.css" rel="stylesheet">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
     <link href="page_style.css" rel="stylesheet">
+    <style>
+        body {
+            overflow-y: hidden;
+        }
+    </style>
 </head>
 <body>
 <h1>Choose your dream vacation home today!</h1>

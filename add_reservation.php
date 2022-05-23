@@ -20,7 +20,8 @@ if (isset($_POST['add_reservation']) and !empty($_POST['datepicker1']) and !empt
         if (strtotime($fetch['checkin']) > strtotime($checkin) and strtotime($checkout) > strtotime($fetch['checkout'])) {
 //            echo("<script>alert('Not available, change dates!')</script>");
             //$check_dates=0;
-            exit('Not available, change dates!');
+            echo("<script> alert('Not available, change dates!');</script>");
+            exit();
 
         }
 
@@ -35,7 +36,8 @@ if (isset($_POST['add_reservation']) and !empty($_POST['datepicker1']) and !empt
         // Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 //        echo 'Could not prepare statement!';
         //echo("<script> window.alert('Not available, change dates!');</script>");
-        exit('Not available, change dates!');
+        echo("<script> alert('Not available, change dates!');</script>");
+        exit();
     }
 
 }

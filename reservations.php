@@ -24,13 +24,13 @@ session_start();?>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="houses.php">See houses</a>
+                        <a class="nav-link" href="houses.php">See houses</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="your_houses.php">Your houses</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="your_reservations.php">Your Reservations</a>
+                        <a class="nav-link active" href="your_reservations.php">Your Reservations</a>
                     </li>
 
 
@@ -58,56 +58,40 @@ session_start();?>
         </div>
     </nav>
 </ul>
+
 <div style = "justify-content: center; align-items: center" class = "container">
     <div class = "panel panel-default">
         <div class = "panel-body">
-<!--            <strong><h3>MAKE A RESERVATION</h3></strong>-->
-            <form name="sort" action="" method="post">
-                <label>
-                    <select name="order">
-                        <option value="choose" selected>Choose here</option>
-                        <option value="priceAsc">Price ascending</option>
-                        <option value="priceDesc">Price descending</option>
-    <!--                    <option value="publisher">Publisher</option>-->
-    <!--                    <option value="isbn">Book ISBN-10</option>-->
-                    </select>
-                </label>
-                <input type="submit" value="Sort houses" />
-            </form>
-            <br/>
+
             <?php
             include 'admin/connect.php';
             global $conn;
-            $query = "SELECT * FROM `houses` except select * from houses where hostedBy='$_SESSION[name]'";
-            if (!empty($_POST['order'])) {
-                switch ($_POST['order']) {
-                    case 'priceAsc':
-                        $query .= ' ORDER BY price ASC';
-                        break;
-                    case 'priceDesc':
-                        $query .= ' ORDER BY price DESC';
-                        break;
-                    case 'choose':
-                        break;
-                }
+            $query = $conn->query("SELECT * FROM `houses` h inner join `reservations` r on h.id=r.house_id WHERE h.hostedBy='$_SESSION[name]' order by checkin desc");
+            $rows = $query->num_rows;
+            if ($rows == 0) {
+                echo 'No reservations to show.';
             }
-            $results = $conn->query( $query );
-            while($fetch = $results->fetch_array()){
-                ?>
-                <div class = "well" style = "height:300px; width:100%;">
-                    <div style = "float:left;">
-                        <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350" alt="photo"/>
+            else {
+                while($fetch = $query->fetch_array()){
+                    ?>
+                    <div class = "well" style = "height:300px; width:100%;">
+                        <div style = "float:left;">
+                            <img src = "images/<?php echo $fetch['photo']?>" height = "250" width = "350"/>
+                        </div>
+                        <div style = "float:left; margin-left:10px;">
+                            <h2 style="color: green"><?php echo $fetch['location']?></h2>
+                            <h4><?php echo "Capacity: ". $fetch['capacity']." people"?></h4>
+                            <h4><?php echo "Reserved by: ". $fetch['account_username']?></h4>
+                            <h4><?php echo "Check-in: ". date("d/m/Y", strtotime($fetch['checkin']))?></h4>
+                            <h4><?php echo "Check-out: ". date("d/m/Y", strtotime($fetch['checkout']))?></h4>
+                            <!--                            <h4 style = "color:green;">--><?php //echo "Price: €".$fetch['price']."/night"?><!--</h4>-->
+                            <h3 style="color: green"><?php echo "Total price: €". $fetch['totalPrice']." "?></h3>
+                            <br />
+                            <!--                            <a style = "margin-left:50px;" href = "reserve.php?id=--><?php //echo $fetch['id']?><!--"<button class="btn btn-outline-success" type="submit"">Reserve</button></a>-->
+                        </div>
                     </div>
-                    <div style = "float:left; margin-left:10px;">
-                        <h2><?php echo $fetch['location']?></h2>
-                        <h3><?php echo "Capacity: ". $fetch['capacity']." people"?></h3>
-                        <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
-                        <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
-                        <br />
-                        <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"><button class="btn btn-outline-success" type="submit"">Reserve</button></a>
-                    </div>
-                </div>
-                <?php
+                    <?php
+                }
             }
             ?>
         </div>
