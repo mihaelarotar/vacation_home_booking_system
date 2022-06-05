@@ -1,25 +1,45 @@
 <?php
 session_start();
+
 include 'admin/connect.php';
 global $conn;
-//if (isset($_POST['search_homes'])) {
+if (isset($_POST['people'], $_POST['checkin'], $_POST['checkout'])) {
     $people = $_POST['people'];
     $checkin = $_POST['checkin'];
     $checkout = $_POST['checkout'];
-    $query = "SELECT * FROM houses where capacity>='$people' and id not in (SELECT house_id FROM reservations WHERE  (checkin <='$checkin' and '$checkin' < checkout) OR (checkin < '$checkout' and '$checkout' <= checkout))";
-    if (!empty($_POST['order'])) {
-        switch ($_POST['order']) {
-            case 'priceAsc':
-                $query .= ' ORDER BY price ASC';
-                break;
-            case 'priceDesc':
-                $query .= ' ORDER BY price DESC';
-                break;
-            case 'choose':
-                break;
-        }
+    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true) {
+        $query = "SELECT * FROM houses where capacity>='$people' and id not in (SELECT house_id FROM reservations 
+            WHERE  (checkin <='$checkin' and '$checkin' < checkout) OR (checkin < '$checkout' and '$checkout' <= checkout)) 
+            except select * from houses where hostedBy='$_SESSION[name]'";
     }
-    $results = $conn->query($query);
+    else {
+        $query = "SELECT * FROM houses where capacity>='$people' and id not in (SELECT house_id FROM reservations 
+            WHERE  (checkin <='$checkin' and '$checkin' < checkout) OR (checkin < '$checkout' and '$checkout' <= checkout)) ";
+    }
+
+}
+else {
+    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true) {
+        $query = "SELECT * FROM `houses` except select * from houses where hostedBy='$_SESSION[name]'";
+    }
+    else {
+        $query ="SELECT * FROM `houses`";
+    }
+
+}
+if (!empty($_POST['order'])) {
+    switch ($_POST['order']) {
+        case 'priceAsc':
+            $query .= ' ORDER BY price ASC';
+            break;
+        case 'priceDesc':
+            $query .= ' ORDER BY price DESC';
+            break;
+        case 'choose':
+            break;
+    }
+}
+$results = $conn->query($query);
 
 ?>
 <!DOCTYPE html>
@@ -37,48 +57,8 @@ global $conn;
 
 <ul>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand me-4 fw-bold h-font" href="home.php">Vacation Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="houses.php">See houses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="your_houses.php">Your houses</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="your_reservations.php">Your Reservations</a>
-                    </li>
-
-
-                </ul>
-                <div class="d-flex">
-                    <a class="nav-link" href="account/logout.php">Log Out</a>
-                    <div class="nav-item dropdown">
-                        <button type="button" id="dropdownMenuButton" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
-                            if(isset($_SESSION['name'])) {
-                                $username = $_SESSION['name'];
-                            } else {
-                                die('Account');
-                            }
-                            echo $username;
-                            ?></button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="account.php">Account settings</a>
-                            <a class="dropdown-item" href="change_password.php">Change password</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item disabled" href="#">Delete account</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php
+    include "navbar.php";?>
 </ul>
 <div style = "justify-content: center; align-items: center" class = "container">
     <div class = "panel panel-default">
@@ -100,7 +80,10 @@ global $conn;
             </form>
             <br/>
             <?php
-
+            if ($results->num_rows == 0) {
+                echo "No houses found.";
+            }
+            else {
             while($fetch = $results->fetch_array()){
                 ?>
                 <div class = "well" style = "height:300px; width:100%;">
@@ -113,12 +96,17 @@ global $conn;
                         <h3><?php echo "Hosted by: ". $fetch['hostedBy']?></h3>
                         <h4 style = "color:green;"><?php echo "Price: €".$fetch['price']."/night"?></h4>
                         <br />
-                        <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"><button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                        <?php if(isset($_SESSION['logged_in']) && $_SESSION['logged_in']==true){?>
+                            <a style = "margin-left:50px;" href = "reserve.php?id=<?php echo $fetch['id']?>"><button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                        <?php }
+                        else {?>
+                            <a style = "margin-left:50px;" href = "account/login.html"><button class="btn btn-outline-success" type="submit"">Reserve</button></a>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php
             }
-
+            }
             ?>
         </div>
     </div>

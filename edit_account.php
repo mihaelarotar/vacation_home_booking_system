@@ -12,7 +12,7 @@ if(ISSET($_POST['edit_account'])){
 WHERE username = ?");
     $updateStmt->bind_param("ssss", $firstName, $lastName, $email, $username);
     $updateStmt->execute();
-    var_dump($updateStmt);
+    //var_dump($updateStmt);
     $updateStmt->close();
     header("location:account.php");
 }

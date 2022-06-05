@@ -40,10 +40,10 @@ if ($stmt = $conn->prepare('SELECT * FROM accounts WHERE username = ?')) {
             $_SESSION['lastName'] = $lastName;
            // echo 'Welcome ' . $_SESSION['name'] . '!';
 
-            header('Location: ../home.php');
+            header('Location: ../index.php');
         } else {
             // Incorrect password
-            echo("<script> alert('Incorrect password!');</script>");
+            echo("<script> alert('Incorrect password!'); window.history.back();</script>");
         }
     } else {
         // Incorrect username
