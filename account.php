@@ -57,7 +57,7 @@ check();
                     </div>
                     <div class = "form-group">
                         <label>Email
-                        <input type = "text" class = "form-control" value = "<?php echo $fetch['email']?>" name = "email" />
+                        <input type = "email" class = "form-control" value = "<?php echo $fetch['email']?>" name = "email" />
                         </label>
                     </div>
                     <br />

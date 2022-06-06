@@ -29,8 +29,6 @@ session_start();
                         <option value="choose" selected>Choose here</option>
                         <option value="priceAsc">Price ascending</option>
                         <option value="priceDesc">Price descending</option>
-    <!--                    <option value="publisher">Publisher</option>-->
-    <!--                    <option value="isbn">Book ISBN-10</option>-->
                     </select>
                 </label>
                 <input type="submit" value="Sort houses" />

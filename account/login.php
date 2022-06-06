@@ -30,7 +30,6 @@ if ($stmt = $conn->prepare('SELECT * FROM accounts WHERE username = ?')) {
             // Verification success! User has logged-in!
             // Create sessions, so we know the user is logged in, they basically act like cookies but remember the data on the server.
 
-
             $_SESSION['logged_in'] = TRUE;
             //$_SESSION['name'] = $_POST['username'];
             $_SESSION['name'] = $username;

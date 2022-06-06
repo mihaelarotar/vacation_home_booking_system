@@ -14,13 +14,13 @@ if (isset($_POST['add_reservation']) and !empty($_POST['datepicker1']) and !empt
 
     $query=$conn->query("SELECT * FROM `reservations` WHERE `house_id` = '$_REQUEST[id]'");
 
-    $check_dates=1;
+    //$check_dates=1;
     while($fetch=$query->fetch_array()) {
 //        if (($fetch['checkin'] <= $checkin and $checkin < $fetch['checkout']) or ($fetch['checkin'] < $checkout and $checkout <= $fetch['checkout'])) {
         if (strtotime($fetch['checkin']) > strtotime($checkin) and strtotime($checkout) > strtotime($fetch['checkout'])) {
 //            echo("<script>alert('Not available, change dates!')</script>");
             //$check_dates=0;
-            echo("<script> alert('Not available, change dates!');</script>");
+            echo("<script> alert('Not available, change dates!'); window.history.back();</script>");
             exit();
 
         }

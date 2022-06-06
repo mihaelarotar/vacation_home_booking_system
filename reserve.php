@@ -58,7 +58,7 @@ check();?>
             <div>
                 <script type="text/javascript">
                     $(function () {
-                        var reserved_days=[];
+                        let reserved_days=[];
                         <?php
                         include 'admin/connect.php';
                         global $conn;
@@ -84,7 +84,7 @@ check();?>
                         ?>
 
                         $(document).ready(function () {
-                            var dateToday = new Date();
+                            let dateToday = new Date();
                             $(function() {
                                 $("#datepicker1").datepicker({
                                     //defaultDate: "01/01/1900",
@@ -93,7 +93,7 @@ check();?>
                                     minDate: dateToday,
                                     beforeShowDay: function(date) {
                                         //var highlight = reserved_days[date];
-                                        for(var i=0;i<reserved_days.length;i++){
+                                        for(let i=0;i<reserved_days.length;i++){
                                             if(reserved_days[i].getTime() === date.getTime()){
                                                 return [false, "event", 'Not available'];
                                             }
@@ -111,7 +111,7 @@ check();?>
                                     dateFormat: "dd-mm-yy",
                                     minDate: dateToday,
                                     beforeShowDay: function(date) {
-                                        for (var i = 0; i < reserved_days.length; i++) {
+                                        for (let i = 0; i < reserved_days.length; i++) {
                                             if (reserved_days[i].getTime() === date.getTime()) {
                                                 return [false, "event", 'Not available'];
                                             }

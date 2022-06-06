@@ -38,7 +38,7 @@ check();?>
                     <label for="location">Location</label>
                     <input type="text" id="location" name="location">
                     <br /><br />
-                    <label for="capacity">Capacity
+                    <label for="capacity">Capacity</label>
                     <input type="text" id="capacity" name="capacity"> people
                     <br /><br />
                     <label for="price">Price €</label>
